@@ -8,7 +8,7 @@ const Banner = () => {
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-md">
                       
-                   <h1 className='text-xl font-bold mb-10 md:text-5xl'>Welcome to the Forum</h1>
+                   <h1 className='text-xl font-bold text-white md:text-5xl mb-10 '>Welcome to the Forum</h1>
                         <div className="form-control">
                             <input type="text" placeholder="Search" className="input input-bordered w-full md:w-auto" />
                         </div>

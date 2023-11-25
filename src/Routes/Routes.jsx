@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import MainLayouts from '../Layouts/MainLayouts/MainLayouts';
 import ErrorPage from '../errorPage/ErrorPage';
 import Home from '../Pages/Home/Home/Home';
-import MemberShip from '../Pages/Home/Home/MemberShip/MemberShip/MemberShip';
+import Membership from '../Pages/Membership/Membership';
 
 const  myCreatedRoutes = createBrowserRouter([
     {
@@ -17,7 +17,7 @@ const  myCreatedRoutes = createBrowserRouter([
             },
             {
                 path:'/membership',
-                element: <MemberShip></MemberShip>
+                element: <Membership></Membership>
             }
           
         ]

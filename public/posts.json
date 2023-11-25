@@ -1,0 +1,48 @@
+[
+    {
+      "_id": "1",
+      "img": "https://pxbar.com/wp-content/uploads/2023/09/stylish-boy-pic-for-fb.jpg",
+      "title": "First Post",
+      "tags": "science",
+      "time": "2 hours ago",
+      "comment": 70,
+      "vote": 5
+    },
+    {
+      "_id": "2",
+      "img": "https://pxbar.com/wp-content/uploads/2023/09/hidden-face-girl-pic-for-instagram-black-and-white-1024x1024.jpg",
+      "title": "Amar Sonar Bangla",
+      "tags": "personal",
+      "time": "1 day ago",
+      "comment": 50,
+      "vote": 12
+    },
+    {
+      "_id": "3",
+      "img": "https://pxbar.com/wp-content/uploads/2023/09/boy-profile-pic-for-instagram-1.jpg",
+      "title": "Third Post",
+      "tags": "story",
+      "time": "3 days ago",
+      "comment": 45,
+      "vote": 8
+    },
+    {
+      "_id": "3",
+      "img": "https://pxbar.com/wp-content/uploads/2023/09/stylish-boy-pic-for-fb.jpg",
+      "title": "Third Post",
+      "tags": "election",
+      "time": "3 days ago",
+      "comment": 13,
+      "vote": 8
+    },
+    {
+      "_id": "3",
+      "img": "https://pxbar.com/wp-content/uploads/2023/09/stylish-boy-pic-for-fb.jpg",
+      "title": "Third Post",
+      "tags": "health",
+      "time": "3 days ago",
+      "comment": 12,
+      "vote": 8
+    }
+  ]
+  
