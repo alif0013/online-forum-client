@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
@@ -16,10 +17,14 @@ const Register = () => {
 
 
 
-        
+
     }
     return (
         <div>
+            <Helmet>
+                <title>Forum | Sign Up</title>
+            </Helmet>
+
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col">
                     <div className="text-center lg:text-left">
