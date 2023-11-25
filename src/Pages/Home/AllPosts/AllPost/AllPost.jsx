@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from '../PostCard/PostCard';
+import usePosts from '../../../../hooks/usePosts';
 
 const AllPost = () => {
-    const [posts, setPosts] = useState([])
-    useEffect(() => {
-        fetch('posts.json')
-            .then(res => res.json())
-            .then(data => setPosts(data))
-    }, [])
+   const [posts] = usePosts()
 
 
     return (
@@ -18,16 +14,11 @@ const AllPost = () => {
            <button className='btn btn-outline'>Sort By Popularity</button>
            </div>
         
-                <div>
+               
                     {
                         posts.map(post => <PostCard post={post} key={post._id}></PostCard>)
                     }
-                </div>
-
-            
-        
-
-
+          
 
         </div>
     );

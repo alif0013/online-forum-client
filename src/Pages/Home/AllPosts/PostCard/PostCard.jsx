@@ -1,18 +1,22 @@
 import { FaComments } from "react-icons/fa";
 import { BiUpvote } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 
 const PostCard = ({ post }) => {
 
-    const { img, title, tags, time, comment, vote } = post;
+    const { _id, img, title, tags, time, comment, vote } = post;
 
     return (
         <div>
             <div className="overflow-x-auto">
                 <table className="table">
 
+
+
                     <tbody>
                         {/* row 1 */}
+
                         <tr className='hover'>
 
                             <td>
@@ -23,7 +27,7 @@ const PostCard = ({ post }) => {
                                         </div>
                                     </div>
                                     <div className="md:w-[170px]">
-                                        <div className="font-bold">{title}</div>
+                                        <div className="font-bold"><Link to={`/details/${_id}`}>{title}</Link></div>
                                         <div className="text-sm opacity-70">#{tags}</div>
                                     </div>
                                 </div>
@@ -38,7 +42,6 @@ const PostCard = ({ post }) => {
                                 <button className="btn btn-ghost btn-xs"><BiUpvote className="text-xl"></BiUpvote> {vote}</button>
                             </th>
                         </tr>
-
 
 
                     </tbody>
