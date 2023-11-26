@@ -1,13 +1,31 @@
+import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
+import toast from 'react-hot-toast';
 
 
 
 const Login = () => {
 
+    const { signInWithGoogle, signIn } = useContext(AuthContext)
+
+    // const location = useLocation();
+    // const navigate = useNavigate();
 
 
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(res => {
+                toast.success('You logged in successfully');
+                // navigate(location?.state ? location.state : '/');
+            })
+            .catch(err => console.log(err))
+    }
+
+
+    //sign in with email and password
     const handlelogin = e => {
         e.preventDefault()
         const form = new FormData(e.currentTarget);
@@ -15,7 +33,22 @@ const Login = () => {
         const password = form.get('password')
         // console.log(email, password);
 
+        // login user by created user and pass  
+        signIn(email, password)
+            .then(res => {
 
+                console.log(res.user);
+                toast.success('You logged in successfully');
+
+                // private route navigate after login
+                // navigate(location?.state ? location.state : '/');
+            })
+            .catch(error => {
+
+                toast.error("your email and password doesn't match please check and try again!")
+                toast.error('Login failed: ' + error.message);
+
+            })
 
 
 
@@ -54,7 +87,7 @@ const Login = () => {
                     </div>
                     <hr />
 
-                    <div className='flex gap-3 btn'>
+                    <div onClick={handleGoogleSignIn} className='flex gap-3 btn'>
                         <FcGoogle></FcGoogle>
                         <h2>Log In With Google</h2>
                     </div>

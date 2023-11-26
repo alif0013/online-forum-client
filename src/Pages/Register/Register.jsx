@@ -1,24 +1,52 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
+import toast from 'react-hot-toast';
+import { updateProfile } from 'firebase/auth';
+
+
 
 const Register = () => {
 
-    const handleRegister = e => {
-        e.preventDefault()
-        const form = e.target;
-        const name = form.name.value;
-        const photoURL = form.photoURL.value;
-        const email = form.email.value;
-        const password = form.password.value;
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { creatUser } = useContext(AuthContext)
 
-        // console.log(name, photoURL, email, password);
+
+    const onSubmit = (data) => {
+        console.log(data);
+
+        creatUser(data.email, data.password)
+               .then(res => {
+                console.log(res.user)
+                toast.success('Registration successfully');
+
+                // update profile
+                updateProfile(res.user, {
+                    displayName: data.name,
+                    photoURL: data.photoURL,
+                })
+                    .then(() => console.log('profile updated'))
+                    .catch()
+
+
+
+            })
+            .catch(error => {
+
+                toast.error('Registration failed: ' + error.message);
+
+            })
 
 
 
 
 
     }
+
+
+
     return (
         <div>
             <Helmet>
@@ -33,30 +61,59 @@ const Register = () => {
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 
-                        <form onSubmit={handleRegister} className="card-body">
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" name='name' placeholder="your name" className="input input-bordered" required />
+                                <input type="text" {...register("name", { required: true })} name='name' placeholder="your name" className="input input-bordered" />
+
+                                {errors.name && <span className='text-red-600'>Name is required</span>}
+
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Photo</span>
                                 </label>
-                                <input type="text" name='photoURL' placeholder="photo url" className="input input-bordered" required />
+                                <input type="text" {...register("photoURL", { required: true })} name='photoURL' placeholder="photo url" className="input input-bordered" required />
+                                {errors.photoURL && <span className='text-red-600'>photoURL is required</span>}
+
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                                <input type="email" {...register("email", { required: true })} name='email' placeholder="email" className="input input-bordered" />
+                                {errors.email && <span className='text-red-600'>Email is required</span>}
+
+
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+                                <input type="password" {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    maxLength: 20,
+                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}/
+                                })} name='password' placeholder="password" className="input input-bordered" />
+
+                                {/*error message  */}
+                                {errors.password?.type === "required" && (
+                                    <p className='text-red-600'>Password is required</p>
+                                )}
+                              {/*error message  */}
+                                {errors.password?.type === "minLength" && (
+                                    <p className='text-red-600'>Password must be 6 chracter</p>
+                                )}
+
+                              {/* password validation error message  */}
+                                {errors.password?.type === "pattern" && (
+                                    <p className='text-red-600'>Password must one uppercase one lowecase and one special chracter</p>
+                                )}
+
+
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
