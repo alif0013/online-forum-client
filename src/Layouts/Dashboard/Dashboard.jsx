@@ -3,6 +3,7 @@ import { FcBusinessman } from "react-icons/fc";
 import { MdAdd } from "react-icons/md";
 import { CiCircleList } from "react-icons/ci";
 import { NavLink, Outlet } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 
 const Dashboard = () => {
     return (
@@ -24,6 +25,14 @@ const Dashboard = () => {
                           <CiCircleList className='text-xl'></CiCircleList> My Post
                         </NavLink>
                     </li>
+                    <div className="divider"></div>
+
+                    <li className='bg-white my-2 rounded-lg'>
+                        <NavLink to="/">
+                          <FaHome className='text-xl'></FaHome>Home
+                        </NavLink>
+                    </li>
+
                 </ul>
             </div>
 
