@@ -11,15 +11,15 @@ const Login = () => {
 
     const { signInWithGoogle, signIn } = useContext(AuthContext)
 
-    // const location = useLocation();
-    // const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
 
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(res => {
                 toast.success('You logged in successfully');
-                // navigate(location?.state ? location.state : '/');
+                navigate(location?.state ? location.state : '/');
             })
             .catch(err => console.log(err))
     }
@@ -41,7 +41,7 @@ const Login = () => {
                 toast.success('You logged in successfully');
 
                 // private route navigate after login
-                // navigate(location?.state ? location.state : '/');
+                navigate(location?.state ? location.state : '/');
             })
             .catch(error => {
 
