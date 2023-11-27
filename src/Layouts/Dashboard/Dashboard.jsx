@@ -4,6 +4,7 @@ import { MdAdd } from "react-icons/md";
 import { CiCircleList } from "react-icons/ci";
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
+import { Toaster } from 'react-hot-toast';
 
 const Dashboard = () => {
     return (
@@ -38,6 +39,7 @@ const Dashboard = () => {
 
             <div className='flex-1'>
                 <Outlet></Outlet>
+                <Toaster></Toaster>
             </div>
 
         </div>

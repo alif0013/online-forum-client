@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const AddPost = () => {
     const { user } = useAuth();
     const [selectedTags, setSelectedTags] = useState(''); // Initialize state for the selected level
+    const axiosSecure = useAxiosSecure()
 
 
     const handleAddPost = e => {
@@ -19,13 +22,24 @@ const AddPost = () => {
         const tags = selectedTags; // Use the selectedLevel from state
         const photo = form.photo.value;
         // Get the current time and format it as "hr:min:sec"
-        const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric' });
+        // const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric' });
+        // Get the current time and format it as "hr:min"
+        const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' });
+
         // Get the current date and format it as "YYYY-MM-DD"
-        const date = new Date().toISOString().split('T')[0];
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        const date = new Date().toLocaleDateString('en-US', options);
 
 
         const newPost = { title, currentTime, date, description, email, name, upvote, downvote, tags, photo }
-        console.log(newPost);
+        // console.log(newPost);
+        axiosSecure.post('/posts', newPost)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.insertedId) {
+                    toast.success('Posted Successfully!')
+                }
+            })
     }
 
 
