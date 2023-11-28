@@ -11,6 +11,10 @@ import Dashboard from '../Layouts/Dashboard/Dashboard';
 import MyProfile from '../Pages/UserDashboard/MyProfile/MyProfile';
 import MyPost from '../Pages/UserDashboard/MyPost/MyPost';
 import AddPost from '../Pages/UserDashboard/AddPost/AddPost';
+import ManageUser from '../Pages/AdminDashboard/ManageUser/ManageUser';
+import ReportedComment from '../Pages/AdminDashboard/ReportedComment/ReportedComment';
+import Announcement from '../Pages/AdminDashboard/Announcement/Announcement';
+import AdminProfile from '../Pages/AdminProfile/AdminProfile';
 
 const  myCreatedRoutes = createBrowserRouter([
     {
@@ -56,6 +60,24 @@ const  myCreatedRoutes = createBrowserRouter([
             {
                 path: 'myPost',
                 element: <MyPost></MyPost>
+            },
+
+            //admin route
+            {
+                path: 'adminProfile',
+                element: <AdminProfile></AdminProfile>
+            },
+            {
+                path: 'manageUser',
+                element: <ManageUser></ManageUser>
+            },
+            {
+                path: 'reportedComment',
+                element: <ReportedComment></ReportedComment>
+            },
+            {
+                path: 'announcement',
+                element: <Announcement></Announcement>
             }
         ]
     }
