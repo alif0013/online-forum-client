@@ -3,12 +3,13 @@ import { Helmet } from 'react-helmet-async';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import usePosts from '../../../hooks/usePosts';
 
 const AddPost = () => {
     const { user } = useAuth();
     const [selectedTags, setSelectedTags] = useState(''); // Initialize state for the selected level
     const axiosSecure = useAxiosSecure()
-
+    const [ , refetch] = usePosts()
 
     const handleAddPost = e => {
         e.preventDefault();
@@ -38,6 +39,9 @@ const AddPost = () => {
                 console.log(res.data);
                 if (res.data.insertedId) {
                     toast.success('Posted Successfully!')
+
+                    //refetch post to update the data 
+                    refetch();
                 }
             })
     }

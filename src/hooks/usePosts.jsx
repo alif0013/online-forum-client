@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
+import useAxiosSecure from "./useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const usePosts = () => {
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        fetch('http://localhost:5000/posts')
-            .then(res => res.json())
-            .then(data => {
-                setPosts(data)
-                setLoading(false)
-            })
-    }, [])
+    //tanstack query
+    const axiosSecure = useAxiosSecure();
+    const {refetch, data: posts = [] } = useQuery({
+        queryKey: ['posts'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/posts')
+            return res.data;
+        }
+    })
 
-    return [posts, loading];
+
+    return [posts, refetch]
 };
 
 export default usePosts;
+
+

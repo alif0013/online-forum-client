@@ -5,8 +5,12 @@ import { CiCircleList } from "react-icons/ci";
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { Toaster } from 'react-hot-toast';
+import useMyPost from '../../hooks/useMyPost';
 
 const Dashboard = () => {
+    const [myPost] = useMyPost()
+
+
     return (
         <div className='md:flex'>
             <div className='md:48 md:min-h-screen lg:w-64 bg-green-400'>
@@ -23,7 +27,7 @@ const Dashboard = () => {
                     </li>
                     <li className='bg-white my-2 rounded-lg'>
                         <NavLink to="/dashboard/myPost">
-                          <CiCircleList className='text-xl'></CiCircleList> My Post
+                          <CiCircleList className='text-xl'></CiCircleList> My Post ({myPost.length})
                         </NavLink>
                     </li>
                     <div className="divider"></div>
