@@ -9,12 +9,13 @@ import useMyPost from '../../hooks/useMyPost';
 import { GoReport } from "react-icons/go";
 import { CiBullhorn } from "react-icons/ci";
 import { FaUsers } from "react-icons/fa";
+import useAdmin from '../../hooks/useAdmin';
 
 
 const Dashboard = () => {
     const [myPost] = useMyPost()
 
-    const isAdmin = true;
+    const {isAdmin} = useAdmin();
 
 
 

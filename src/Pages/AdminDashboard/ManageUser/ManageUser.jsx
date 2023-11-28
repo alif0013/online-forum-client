@@ -2,8 +2,6 @@ import React from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet-async';
-import { MdOutlineDelete } from 'react-icons/md';
-import { FaUser } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
 const ManageUser = () => {
