@@ -4,23 +4,36 @@ import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet-async';
 import { MdOutlineDelete } from 'react-icons/md';
 import { FaUser } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const ManageUser = () => {
 
     const axiosSecure = useAxiosSecure();
 
-    const {data : users = []} = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
-        queryFn: async () =>{
+        queryFn: async () => {
             const res = await axiosSecure.get('/users');
             return res.data;
         }
     })
 
+    const handleMakeAdmin = user => {
+        axiosSecure.patch(`/users/admin/${user._id}`)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+
+                    refetch();
+
+                    toast.success("admin now")
+                }
+            })
+    }
 
     return (
         <div>
-               <Helmet>
+            <Helmet>
                 <title>Dashboard | Manage Users</title>
             </Helmet>
 
@@ -33,22 +46,33 @@ const ManageUser = () => {
                         {/* head */}
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Make Admin</th>
+                                <th>Role</th>
                                 <th>Membership Status</th>
                             </tr>
                         </thead>
-                    
+
                         <tbody>
-                            {/* row 1 */}
+                            {/* row 1 */}{/* <FaUser></FaUser> */}
                             {
-                                users.map(user => <>
+                                users.map((user, index) => <>
                                     <tr key={user._id}>
 
+                                        <td>{index + 1}</td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
-                                        <td> <div className="btn"><FaUser></FaUser></div> </td>
+                                        <td>
+                                        {
+                                            user.role === 'admin' ? "Admin" :
+                                            <button onClick={() => handleMakeAdmin(user)}
+                                            className="btn btn-outline">Make Admin</button>
+
+                                        }
+                                        </td>
+
+
                                         <td> <button className="btn text-xl text-green-600">Bronze</button> </td>
 
                                     </tr>
