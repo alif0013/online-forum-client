@@ -6,7 +6,7 @@ import useAuth from "../../../../hooks/useAuth";
 
 const PostCard = ({ post }) => {
     const { user } = useAuth()
-    const { _id, title, tags, currentTime, userImg, date, description, email, name, upvote } = post;
+    const { _id, title, tags, userImg, date, name, upvote } = post;
 
     return (
   
