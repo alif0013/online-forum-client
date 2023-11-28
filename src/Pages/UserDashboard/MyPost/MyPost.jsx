@@ -68,6 +68,7 @@ const MyPost = () => {
                                 <th>Action</th>
                             </tr>
                         </thead>
+                    
                         <tbody>
                             {/* row 1 */}
                             {

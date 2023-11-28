@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import toast from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 
@@ -12,22 +13,37 @@ const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { creatUser } = useContext(AuthContext)
-
+    const axiosPublic = useAxiosPublic();
 
     const onSubmit = (data) => {
         console.log(data);
 
         creatUser(data.email, data.password)
-               .then(res => {
+            .then(res => {
                 console.log(res.user)
-                toast.success('Registration successfully');
-
+               
                 // update profile
                 updateProfile(res.user, {
                     displayName: data.name,
                     photoURL: data.photoURL,
                 })
-                    .then(() => console.log('profile updated'))
+                    .then(() => {
+                    //creat user entry in the database
+
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email
+                        }
+
+                        axiosPublic.post('/users', userInfo)
+                        .then(res =>{
+                           
+                           if(res.data.insertedId){
+                            toast.success('Registration successfully');
+                            
+                           }
+                        })
+                     })
                     .catch()
 
 
@@ -103,12 +119,12 @@ const Register = () => {
                                 {errors.password?.type === "required" && (
                                     <p className='text-red-600'>Password is required</p>
                                 )}
-                              {/*error message  */}
+                                {/*error message  */}
                                 {errors.password?.type === "minLength" && (
                                     <p className='text-red-600'>Password must be 6 chracter</p>
                                 )}
 
-                              {/* password validation error message  */}
+                                {/* password validation error message  */}
                                 {errors.password?.type === "pattern" && (
                                     <p className='text-red-600'>Password must one uppercase one lowecase and one special chracter</p>
                                 )}
