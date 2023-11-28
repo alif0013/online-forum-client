@@ -16,9 +16,9 @@ const AllPost = () => {
 
             </div>
 
-            <h1 className="text-6xl">All Post: {posts.length}</h1>
+            {/* <h1 className="text-6xl">All Post: {posts.length}</h1> */}
 
-            <div>
+            <div className='px-5'>
                 {
                     posts.map(post => <PostCard post={post} key={post._id}></PostCard>)
                 }

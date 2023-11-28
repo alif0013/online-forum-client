@@ -20,6 +20,7 @@ const AddPost = () => {
         const downvote = form.downvote.value;
         const email = user.email;  //useAuth theke asa user email
         const name = user.displayName;  //useAuth theke asa user email
+        const userImg = user.photoURL;
         const tags = selectedTags; // Use the selectedLevel from state
         const photo = form.photo.value;
         // Get the current time and format it as "hr:min:sec"
@@ -32,7 +33,7 @@ const AddPost = () => {
         const date = new Date().toLocaleDateString('en-US', options);
 
 
-        const newPost = { title, currentTime, date, description, email, name, upvote, downvote, tags, photo }
+        const newPost = { title, currentTime,userImg, date, description, email, name, upvote, downvote, tags, photo }
         // console.log(newPost);
         axiosSecure.post('/posts', newPost)
             .then(res => {

@@ -13,13 +13,15 @@ const MyPost = () => {
             <Helmet>
                 <title>Dashboard | My Post</title>
             </Helmet>
-            
-            <h2 className='text-4xl'>My Post: {myPost.length}</h2>
-            
 
-          
+            <h2 className='text-4xl'>My Post: {myPost.length}</h2>
+
+
+
         </div>
-    );
+    )
+
+
 };
 
 export default MyPost;
