@@ -9,9 +9,10 @@ const useAdmin = () => {
 
     const {data: isAdmin} = useQuery({
         queryKey: [user?.email, 'isAdmin'],
+        enabled: !! user?.email && !! localStorage.getItem('access-token'),
         queryFn: async() =>{
-            const res = await axiosSecure.get(`/users/admin/${user.email}`)
-            console.log(res.data);
+            const res = await axiosSecure.get(`/users/admin/${user?.email}`)
+            console.log(res.data.admin);
             return res.data?.admin;
         }
     })

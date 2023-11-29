@@ -15,7 +15,7 @@ import useAdmin from '../../hooks/useAdmin';
 const Dashboard = () => {
     const [myPost] = useMyPost()
 
-    const {isAdmin} = useAdmin();
+    const [isAdmin] = useAdmin();
 
 
 

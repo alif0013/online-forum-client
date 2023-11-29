@@ -24,7 +24,7 @@ const ManageUser = () => {
 
                     refetch();
 
-                    toast.success("admin now")
+                    toast.success("Admin now")
                 }
             })
     }
