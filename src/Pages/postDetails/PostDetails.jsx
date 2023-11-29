@@ -1,15 +1,67 @@
 import React from 'react';
 import { BiUpvote } from 'react-icons/bi';
-import { FaRegCommentAlt } from 'react-icons/fa';
+import { BiDownvote } from "react-icons/bi";
+import { IoMdSend } from "react-icons/io";
 import { useLoaderData } from 'react-router-dom';
 import { RiShareForwardLine } from "react-icons/ri";
+import useAuth from '../../hooks/useAuth';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 
 const PostDetails = () => {
 
+    const { user } = useAuth()
     const posts = useLoaderData()
+    const axiosSecure = useAxiosSecure();
+
     const { _id, title, tags, currentTime, userImg, date, description, email, name, upvote } = posts;
 
+    const { data: comments = [], refetch } = useQuery({
+        queryKey: ['comments'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/comments');
+            return res.data;
+        }
+    })
+
+    const handleComments = e => {
+        e.preventDefault();
+        const form = e.target;
+        const comment = form.comment.value;
+        const userName = user?.displayName;
+        const commenterImg = user?.photoURL;
+        const newComment = { comment, title, commenterImg, userName };
+        // console.log(newComment);
+
+        axiosSecure.post('/comments', newComment)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.insertedId) {
+                    // toast.success('Posted Successfully!')
+
+                    //refetch post to update the data 
+                    // refetch();
+                }
+            })
+
+
+    }
+
+
+
+    const handleUpvote = id => {
+
+        axiosSecure.patch(`/users/vote/${id}`)
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+
+                    refetch();
+
+                }
+            })
+    }
 
     return (
 
@@ -43,15 +95,90 @@ const PostDetails = () => {
                 </div>
 
                 <div className="flex items-center gap-5 mt-5">
-                    <BiUpvote className="text-xl"></BiUpvote> {upvote}
+                    <button onClick={() => handleUpvote(_id)} className='btn'>
+                        <BiUpvote className="text-xl"></BiUpvote>
+                    </button> {upvote}
 
-                    <FaRegCommentAlt className="text-xl"></FaRegCommentAlt> 0
+                    <button className='btn'>
+                        <BiDownvote className="text-xl"></BiDownvote>
+                    </button>
+
+
                     <RiShareForwardLine className="text-xl"></RiShareForwardLine>
                 </div>
 
             </div>
 
-            
+            {/* comment section */}
+            <div>
+                <div className='flex gap-5 items-center mt-10 md:w-[600px] mx-auto'>
+                    <div className="avatar online">
+                        <div className="w-16 rounded-full">
+                            <img src={user?.photoURL} />
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <form onSubmit={handleComments} className='flex gap-2'>
+                            <input type="text" name="comment" placeholder="Wright a comment..."
+                                className="input input-bordered input-primary md:w-[430px] " />
+
+                            <button type='submit' className='btn'>
+                                <IoMdSend className="text-xl"></IoMdSend>
+                            </button>
+
+                        </form>
+                    </div>
+
+                </div>
+
+
+                {/* comment box */}
+
+                <div className='mt-10 md:w-[600px] mx-auto'>
+
+
+                    <div className='mb-10'>
+                        {
+                            comments.map(comment => <>
+
+                                <div className='mb-10'>
+
+                                    <div className='flex gap-3 items-center'>
+
+
+                                        <div className="avatar">
+                                            <div className="w-10 rounded-full">
+                                                <img src={comment.commenterImg} />
+                                            </div>
+                                        </div>
+
+                                        <div className='bg-slate-50 px-5 py-2 rounded-lg'>
+                                            <div>
+                                                <h1 className='font-bold'>{comment.userName}</h1>
+                                            </div>
+
+                                            <h1 className=''>{comment.comment}</h1>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+
+
+
+
+                            </>)
+
+                        }
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     );
 };

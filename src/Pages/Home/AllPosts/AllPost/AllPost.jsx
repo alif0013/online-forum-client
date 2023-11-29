@@ -20,7 +20,8 @@ const AllPost = () => {
 
             <div className='px-5'>
                 {
-                    posts.map(post => <PostCard post={post} key={post._id}></PostCard>)
+                    posts.map(post => <PostCard post={post} key={post._id}></PostCard>).reverse()
+                
                 }
 
             </div>
