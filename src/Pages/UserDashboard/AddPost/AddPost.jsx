@@ -16,8 +16,8 @@ const AddPost = () => {
         const form = e.target;
         const title = form.title.value;
         const description = form.description.value;
-        const upvote = form.upvote.value;
-        const downvote = form.downvote.value;
+        const upvote = 0;
+        const downvote = 0;
         const email = user.email;  //useAuth theke asa user email
         const name = user.displayName;  //useAuth theke asa user email
         const userImg = user.photoURL;
@@ -70,8 +70,8 @@ const AddPost = () => {
 
                         </div>
                         <div className='mt-3'>
-                            <input type="text" value={0} name='upvote' placeholder="Up Vote" className="input input-bordered w-full max-w-xs mr-5 mb-3" />
-                            <input type="text" value={0} name='downvote' placeholder="Down Vote" className="input input-bordered w-full max-w-xs" />
+                            <input type="text"  name='upvote' placeholder="Up Vote" className="input input-bordered w-full max-w-xs mr-5 mb-3" />
+                            <input type="text"  name='downvote' placeholder="Down Vote" className="input input-bordered w-full max-w-xs" />
 
 
                             {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
