@@ -1,7 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const Announcement = () => {
+    const axiosSecure = useAxiosSecure();
 
 
     const handleAddAnnouncement = e => {
@@ -13,7 +16,17 @@ const Announcement = () => {
         const image = form.image.value;
 
         const newAnnouncement = { name, image, title, description }
-        console.log(newAnnouncement);
+        // console.log(newAnnouncement);
+        axiosSecure.post('/announcement', newAnnouncement)
+        .then(res => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+                toast.success('Announcement Added Successfully!')
+
+                //refetch post to update the data 
+                // refetch();
+            }
+        })
     }
 
 
