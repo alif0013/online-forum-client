@@ -15,6 +15,7 @@ import ManageUser from '../Pages/AdminDashboard/ManageUser/ManageUser';
 import ReportedComment from '../Pages/AdminDashboard/ReportedComment/ReportedComment';
 import Announcement from '../Pages/AdminDashboard/Announcement/Announcement';
 import AdminProfile from '../Pages/AdminProfile/AdminProfile';
+import CommentDetails from '../Pages/UserDashboard/MyPost/CommentDetails';
 
 const  myCreatedRoutes = createBrowserRouter([
     {
@@ -59,7 +60,8 @@ const  myCreatedRoutes = createBrowserRouter([
             },
             {
                 path: 'myPost',
-                element: <MyPost></MyPost>
+                element: <MyPost></MyPost>,
+                
             },
 
             //admin route
@@ -78,7 +80,14 @@ const  myCreatedRoutes = createBrowserRouter([
             {
                 path: 'announcement',
                 element: <Announcement></Announcement>
-            }
+            },
+            // {
+            //     path: 'comments-details/:id',
+            //     element: <CommentDetails></CommentDetails> ,
+              
+            // }
+            
+          
         ]
     }
 ])

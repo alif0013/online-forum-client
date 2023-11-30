@@ -31,7 +31,8 @@ const PostDetails = () => {
         const comment = form.comment.value;
         const userName = user?.displayName;
         const commenterImg = user?.photoURL;
-        const newComment = { comment, title, commenterImg, userName };
+        const comenterEmail = user?.email; 
+        const newComment = { comment, title, comenterEmail, commenterImg, userName };
         // console.log(newComment);
 
         axiosSecure.post('/comments', newComment)
@@ -41,7 +42,7 @@ const PostDetails = () => {
                     // toast.success('Posted Successfully!')
 
                     //refetch post to update the data 
-                    // refetch();
+                    refetch();
                 }
             })
 

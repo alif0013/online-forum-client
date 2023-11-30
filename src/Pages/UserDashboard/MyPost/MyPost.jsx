@@ -5,6 +5,8 @@ import { FaRegCommentAlt } from 'react-icons/fa';
 import { MdOutlineDelete } from "react-icons/md";
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 
 const MyPost = () => {
@@ -13,6 +15,8 @@ const MyPost = () => {
 
     const axiosSecure = useAxiosSecure();
 
+    
+    
 
     const handleDelete = id => {
         // console.log(id);
@@ -68,7 +72,7 @@ const MyPost = () => {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                    
+                       
                         <tbody>
                             {/* row 1 */}
                             {
@@ -77,7 +81,7 @@ const MyPost = () => {
 
                                         <td>{post.title}</td>
                                         <td>{post.upvote}</td>
-                                        <td> <div className="btn"><FaRegCommentAlt></FaRegCommentAlt></div> </td>
+                                        <td> <Link className="btn"><FaRegCommentAlt></FaRegCommentAlt></Link> </td>
                                         <td> <button onClick={() => handleDelete(post._id)} className="btn text-xl text-red-600"><MdOutlineDelete></MdOutlineDelete></button> </td>
 
                                     </tr>
