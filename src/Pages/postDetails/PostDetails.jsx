@@ -53,7 +53,7 @@ const PostDetails = () => {
 
     const handleUpvote = id => {
 
-        axiosSecure.patch(`/users/vote/${id}`)
+        axiosSecure.patch(`/posts/vote/${id}`)
             .then(res => {
                 console.log(res.data);
                 if (res.data.modifiedCount > 0) {
